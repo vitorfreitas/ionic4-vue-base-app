@@ -1,5 +1,5 @@
 {
-  "name": "app_tab",
+  "name": "base_app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,19 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "ionic:build": "npm run build"
   },
   "dependencies": {
+    "@angular/core": "^7.2.15",
+    "@capacitor/android": "^1.0.0",
+    "@capacitor/cli": "1.0.0",
+    "@capacitor/core": "1.0.0",
+    "@ionic-native/camera": "^5.6.0",
+    "@ionic-native/core": "^5.6.0",
+    "@ionic-native/geolocation": "^5.6.0",
+    "@ionic/core": "^4.4.2",
+    "@ionic/vue": "0.0.4",
     "core-js": "^2.6.5",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

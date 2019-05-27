@@ -1,0 +1,10 @@
+{
+  "name": "Base App",
+  "type": "custom",
+  "id": "base_ap_id",
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
+  "hooks": {}
+}
