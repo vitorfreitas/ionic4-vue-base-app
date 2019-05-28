@@ -56,9 +56,19 @@ export default Vue.extend({
 
 
 <template>
-  <div id="app">
+  <ion-app>
+    <div id="nav" v-if="currentPage==='main'">
+      <ion-toolbar color="primary">
+        <ion-buttons slot="secondary">
+          <ion-button>
+            <ion-icon slot="icon-only" name="logo-ionic"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title>Gamarra Base APP</ion-title>
+      </ion-toolbar>
+    </div>
     <Login v-if="currentPage==='login'"></Login>
     <Register v-else-if="currentPage==='register'"></Register>
     <Main v-else></Main>
-  </div>
+  </ion-app>
 </template>

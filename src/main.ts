@@ -21,6 +21,7 @@ new Vue({
   router,
   store,
   beforeMount() {
+    localStorage.setItem("FirstLogin", "true");
     new Geolocation()
       .getCurrentPosition()
       .then(resp => {

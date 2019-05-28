@@ -5,6 +5,9 @@ export default Vue.extend({
   data() {
     return {};
   },
+  props: {
+    timeout: { type: Number, default: 1000 }
+  },
   methods: {
     logar() {
       console.log("LOGIN");
@@ -14,6 +17,22 @@ export default Vue.extend({
     registerPage() {
       console.log("REGISTER");
       this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Register);
+    },
+
+    //
+    async presentLoading() {
+      await this.$ionic.loadingController
+        .create({
+          message: "Autenticando Usuário...",
+          duration: this.timeout
+        })
+        .then(async l => {
+          setTimeout(() => {
+            this.logar();
+            l.dismiss();
+          }, this.timeout);
+          await l.present();
+        });
     }
   }
 });
@@ -21,8 +40,8 @@ export default Vue.extend({
 
 <template>
   <ion-grid>
-    <ion-row justify-content-center>
-      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+    <ion-row style="display: flex; justify-content: center;height: 100%;">
+      <ion-col align-self-center size="15">
         <div text-center>
           <h4>Login</h4>
         </div>
@@ -37,7 +56,7 @@ export default Vue.extend({
         </div>
 
         <div padding>
-          <ion-button size="large" @click="logar()" expand="block">Entrar</ion-button>
+          <ion-button @click="presentLoading" expand="full">Entrar</ion-button>
         </div>
 
         <div padding>

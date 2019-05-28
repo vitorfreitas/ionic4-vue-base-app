@@ -1,14 +1,21 @@
 <script lang="ts">
 import Vue from "vue";
+import { Pages } from "./../store/interfaces";
 export default Vue.extend({
-  name: "register"
+  name: "register",
+  methods: {
+    loginPage() {
+      console.log("REGISTER");
+      this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Login);
+    }
+  }
 });
 </script>
 
 <template>
   <ion-grid>
-    <ion-row justify-content-center>
-      <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+    <ion-row style="display: flex; justify-content: center;height: 100%;">
+      <ion-col align-self-center size-xs="15">
         <div text-center>
           <h4>Registrar</h4>
         </div>
@@ -27,7 +34,11 @@ export default Vue.extend({
         </div>
 
         <div padding>
-          <ion-button size="large" href="/touchid" expand="block">Registrar</ion-button>
+          <ion-button expand="full">Registrar</ion-button>
+        </div>
+
+        <div padding>
+          <a @click="loginPage()">Já tenho uma conta.</a>
         </div>
       </ion-col>
     </ion-row>
