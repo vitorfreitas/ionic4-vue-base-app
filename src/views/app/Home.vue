@@ -1,7 +1,13 @@
 <template>
   <div style="height: 100%;">
-    <ion-list v-if="items.length">
-      <ion-item-sliding @ionDrag="onDrag" v-for="(item, i) in items" :key="i" side="end">
+    <ion-list v-if="noteList.length">
+      <ion-item-sliding
+        id="deleteSlideButton"
+        @ionDrag="onDrag"
+        v-for="(item, i) in noteList"
+        :key="i"
+        side="end"
+      >
         <ion-item
           @click="goToNote(item)"
           @touchstart="startCounting(i)"
@@ -16,7 +22,9 @@
           </ion-note>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option @click="favoriteItem(i)">Favorite!</ion-item-option>
+          <ion-item-option slot="icon-only" color="danger" @click="deleteItem(item)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
     </ion-list>
@@ -30,34 +38,11 @@ export default {
   data() {
     return {
       // Pressing Events Variables
-      interval: false,
-      //
-      categories: [
-        {
-          name: "private",
-          icon: "person"
-        },
-        {
-          name: "favorite",
-          icon: "star"
-        },
-        {
-          name: "urgent",
-          icon: "clock"
-        }
-      ]
+      interval: false
     };
   },
-  beforeMount() {
-    // if (JSON.parse(localStorage.getItem("FirstLogin"))) {
-    //   this.populate();
-    // }
-  },
-  mounted() {
-    localStorage.setItem("FirstLogin", "false");
-  },
   computed: {
-    items() {
+    noteList() {
       return this.$store.state.noteList;
     }
   },
@@ -67,32 +52,6 @@ export default {
       this.$router.push({
         name: "note",
         params: { note }
-      });
-    },
-    populate() {
-      // Is Not MORE USED
-      [0, 1].forEach((e, i) => {
-        let numberOfCategories = Math.floor(Math.random() * 3) + 1;
-        let categories = [];
-        if (i % 2 == 0) {
-          for (let j = 0; j < numberOfCategories; j++) {
-            let categoryIndex = Math.floor(
-              Math.random() * this.categories.length
-            );
-            if (!categories.includes(this.categories[categoryIndex].icon)) {
-              categories.push(this.categories[categoryIndex].icon);
-            }
-          }
-        }
-
-        setTimeout(() => {
-          this.$store.commit("ADD_NEW_NOTE", {
-            id: new Date().getTime(),
-            title: `My Note #${i}`,
-            note: `this is the description of note number ${i}`,
-            categories
-          });
-        }, 30);
       });
     },
     // START Events Long Press Methods
@@ -121,25 +80,28 @@ export default {
     },
     async editItemTitle(index) {
       const alert = await this.$ionic.alertController.create({
-        header: "Editing Note Title",
+        header: `Editing Note #${this.noteList[index].id} Title`,
         inputs: [
           {
             name: "title",
             placeholder: "Title",
-            value: this.items[index].title
+            value: this.noteList[index].title
           }
         ],
         buttons: [
           {
             text: "Cancel",
             role: "cancel",
-            cssClass: "secondary"
+            cssClass: "secondary",
+            handler: e => {}
           },
           {
             text: "Confirm",
             handler: e => {
               console.log(e);
-              this.items[index].title = e.title;
+              const note = this.noteList[index];
+              note.title = e.title;
+              this.$store.commit("UPDATE_NOTE", note);
             }
           }
         ]
@@ -147,23 +109,27 @@ export default {
       await alert.present();
     },
 
-    async favoriteItem(index) {
+    async deleteItem(item) {
       const alert = await this.$ionic.alertController.create({
-        header: "Favorited!",
-        message: "This Note has bee <strong>favorited</strong> now.",
+        header: "Delete",
+        message: "You cannot recover this not if you delete it",
+        subHeader: "Do you wanna really delete this note?",
         buttons: [
           {
             text: "Cancel",
             role: "cancel",
-            cssClass: "warning",
+            cssClass: "danger",
             handler: e => {
               console.log("Canceled", e);
+              document.getElementById("deleteSlideButton").closeOpened();
             }
           },
           {
             text: "Confirm",
             handler: e => {
+              this.$store.commit("DELETE_NOTE", item);
               console.log("Confirmed", e);
+              document.getElementById("deleteSlideButton").closeOpened();
             }
           }
         ]

@@ -37,20 +37,30 @@ export default Vue.extend({
       return ["note"].includes(this.$route.name as string);
     },
     titleNotEmpty(): boolean {
-      return this.new_note.title !== "" || this.new_note.title !== null;
+      return this.new_note.title != "";
     }
   },
   methods: {
-    saveNote(): void {
-      if (this.saveOrUpdate === "save") {
-        this.$store.commit("ADD_NEW_NOTE", this.new_note);
-      } else if (this.saveOrUpdate === "update") {
-        this.$store.commit("UPDATE_NOTE", this.new_note);
-      }
+    async saveNote() {
+      if (this.titleNotEmpty) {
+        if (this.saveOrUpdate === "save") {
+          this.$store.commit("ADD_NEW_NOTE", this.new_note);
+        } else if (this.saveOrUpdate === "update") {
+          this.$store.commit("UPDATE_NOTE", this.new_note);
+        }
 
-      this.$router.push({
-        path: "/"
-      });
+        this.$router.push({
+          path: "/"
+        });
+      } else {
+        const alert = await this.$ionic.alertController.create({
+          header: "Missing Title",
+          message: "This note is missing title",
+          cssClass: "secondary",
+          buttons: ["OK"]
+        });
+        await alert.present();
+      }
     }
   }
 });
@@ -89,5 +99,6 @@ export default Vue.extend({
     </ion-fab>
   </div>
 </template>
+
 
 

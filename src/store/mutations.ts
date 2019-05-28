@@ -20,5 +20,14 @@ export default {
       }
     });
     localStorage.setItem("noteList", JSON.stringify(state.noteList));
+  },
+  DELETE_NOTE(state: any, payload: any) {
+    const newList: any[] = state.noteList.filter(
+      (note: any) => note.id != payload.id
+    );
+    console.log("A SER DELETADO", payload);
+    console.dir("SOBRARAM", newList);
+    state.noteList = newList;
+    localStorage.setItem("noteList", JSON.stringify(state.noteList));
   }
 };
