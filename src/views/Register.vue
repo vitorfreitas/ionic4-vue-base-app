@@ -7,15 +7,22 @@ export default Vue.extend({
     loginPage() {
       console.log("REGISTER");
       this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Login);
+    },
+    register() {
+      this.$store.commit("LOGIN", "iudhsadjsaijdijoijq2u1309dsadjaios");
+      this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Main);
+      this.$router.push({
+        name: "home"
+      });
     }
   }
 });
 </script>
 
 <template>
-  <ion-grid>
-    <ion-row style="display: flex; justify-content: center;height: 100%;">
-      <ion-col align-self-center size-xs="15">
+  <ion-grid style="display: flex; justify-content: center;height: 100%;">
+    <ion-row>
+      <ion-col align-self-center size-xs="12">
         <div text-center>
           <h4>Registrar</h4>
         </div>
@@ -34,11 +41,11 @@ export default Vue.extend({
         </div>
 
         <div padding>
-          <ion-button expand="full">Registrar</ion-button>
+          <ion-button @click="register" expand="full">Registrar</ion-button>
         </div>
 
         <div padding>
-          <a @click="loginPage()">Já tenho uma conta.</a>
+          <a @click="loginPage">Já tenho uma conta.</a>
         </div>
       </ion-col>
     </ion-row>

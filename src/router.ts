@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/app/Home.vue";
-import Note from "./views/app/Note.vue";
+import { AuthToLogin, AuthToMain } from "./middlewares";
 
 Vue.use(Router);
 
@@ -12,22 +11,19 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: () => import("@/views/Home.vue"),
+      beforeEnter: AuthToMain
     },
     {
-      path: "/note",
-      name: "note",
-      props: true,
-      component: Note
+      path: "/login",
+      name: "login",
+      component: () => import("@/views/Login.vue"),
+      beforeEnter: AuthToLogin
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("@/views/Register.vue")
     }
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () =>
-    //     import(/* webpackChunkName: "about" */ "./views/About.vue")
-    // }
   ]
 });

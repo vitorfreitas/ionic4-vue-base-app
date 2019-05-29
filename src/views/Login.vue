@@ -3,23 +3,28 @@ import Vue from "vue";
 import { Pages } from "@/store/interfaces";
 export default Vue.extend({
   data() {
-    return {};
-  },
-  props: {
-    timeout: { type: Number, default: 1000 }
+    return {
+      timeout: 1000
+    };
   },
   methods: {
     logar() {
       console.log("LOGIN");
       this.$store.commit("LOGIN", "idjsaoojsfçkopaifjasdojfisaofijsdo");
       this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Main);
+      this.$router.push({
+        name: "home"
+      });
     },
     registerPage() {
       console.log("REGISTER");
       this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Register);
+      this.$router.push({
+        name: "register"
+      });
     },
 
-    //
+    // Loading de Autenticação
     async presentLoading() {
       await this.$ionic.loadingController
         .create({
@@ -39,9 +44,9 @@ export default Vue.extend({
 </script>
 
 <template>
-  <ion-grid>
-    <ion-row style="display: flex; justify-content: center;height: 100%;">
-      <ion-col align-self-center size="15">
+  <ion-grid style="display: flex; justify-content: center;height: 100%;">
+    <ion-row>
+      <ion-col align-self-center size="12">
         <div text-center>
           <h4>Login</h4>
         </div>
@@ -60,7 +65,7 @@ export default Vue.extend({
         </div>
 
         <div padding>
-          <a @click="registerPage()">Registrar</a>
+          <a @click="registerPage">Registrar</a>
         </div>
       </ion-col>
     </ion-row>
