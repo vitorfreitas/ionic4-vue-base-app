@@ -1,7 +1,7 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "App TAb",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www"
+  "webDir": "www",
+  "appId": "io.gamarra.baseapp",
+  "appName": "BaseApp"
 }
