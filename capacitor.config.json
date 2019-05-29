@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "App TAb",
+  "appId": "io.wp.notes",
+  "appName": "WPNotes",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"
