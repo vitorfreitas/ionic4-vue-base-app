@@ -5,8 +5,8 @@ export default Vue.extend({
   name: "register",
   methods: {
     loginPage() {
-      console.log("REGISTER");
       this.$store.commit("CHANGE_CURRENT_PAGE", Pages.Login);
+      this.$router.back();
     },
     register() {
       this.$store.commit("LOGIN", "iudhsadjsaijdijoijq2u1309dsadjaios");
@@ -20,34 +20,39 @@ export default Vue.extend({
 </script>
 
 <template>
-  <ion-grid style="display: flex; justify-content: center;height: 100%;">
-    <ion-row>
-      <ion-col align-self-center size-xs="12">
-        <div text-center>
-          <h4>Registrar</h4>
-        </div>
-        <div padding>
-          <ion-item>
-            <ion-input type="text" placeholder="Name"></ion-input>
-          </ion-item>
+  <div class="signup">
+    <img src="../assets/logo.png" alt="Logo do app" class="signup__logo">
 
-          <ion-item>
-            <ion-input type="email" placeholder="Email"></ion-input>
-          </ion-item>
+    <form class="signup__form" padding @submit="register">
+      <ion-item>
+        <ion-label position="floating">Nome completo</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
 
-          <ion-item>
-            <ion-input type="password" placeholder="Senha"></ion-input>
-          </ion-item>
-        </div>
+      <ion-item>
+        <ion-label position="floating">Endereço de email</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
 
-        <div padding>
-          <ion-button @click="register" expand="full">Registrar</ion-button>
-        </div>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
 
-        <div padding>
-          <a @click="loginPage">Já tenho uma conta.</a>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-button type="submit" margin-top expand="full">Criar minha conta</ion-button>
+      <ion-button type="button" @click="loginPage" expand="full" fill="clear">Já tenho uma conta</ion-button>
+    </form>
+  </div>
 </template>
+
+<style scoped>
+.signup {
+  padding: 20vw 0;
+}
+
+.signup__logo {
+  width: 8rem;
+  margin: 0 auto;
+  display: block;
+}
+</style>
