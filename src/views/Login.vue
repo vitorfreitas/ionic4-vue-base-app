@@ -44,30 +44,34 @@ export default Vue.extend({
 </script>
 
 <template>
-  <ion-grid style="display: flex; justify-content: center;height: 100%;">
-    <ion-row>
-      <ion-col align-self-center size="12">
-        <div text-center>
-          <h4>Login</h4>
-        </div>
-        <div padding>
-          <ion-item>
-            <ion-input type="email" placeholder="Email"></ion-input>
-          </ion-item>
+  <div class="login">
+    <img src="../assets/logo.png" alt="Logo do app" class="login__logo">
 
-          <ion-item>
-            <ion-input type="password" placeholder="Senha"></ion-input>
-          </ion-item>
-        </div>
+    <form class="login__form" padding @submit="presentLoading">
+      <ion-item>
+        <ion-label position="floating">Endereço de email</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
 
-        <div padding>
-          <ion-button @click="presentLoading" expand="full">Entrar</ion-button>
-        </div>
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
 
-        <div padding>
-          <a @click="registerPage">Registrar</a>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      <ion-button type="submit" margin-top expand="full">Entrar</ion-button>
+      <ion-button type="button" @click="registerPage" expand="full" fill="clear">Não tenho conta</ion-button>
+    </form>
+  </div>
 </template>
+
+<style scoped>
+.login {
+  padding: 25vw 0;
+}
+
+.login__logo {
+  width: 8rem;
+  margin: 0 auto;
+  display: block;
+}
+</style>
